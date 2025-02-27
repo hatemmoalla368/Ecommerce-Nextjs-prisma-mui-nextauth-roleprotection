@@ -1,0 +1,119 @@
+
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+
+model specialites{
+id Int @id @default(autoincrement()) @db.UnsignedInt
+nomspecialite String @db.VarChar(50) @unique
+livres livres[]
+createdAt DateTime? @db.Timestamp(0)
+updatedAt DateTime? @db.Timestamp(0)
+
+}
+model editeurs{
+id Int @id @default(autoincrement()) @db.UnsignedInt
+maisonedit String @db.VarChar(50) @unique
+siteweb String @db.VarChar(100) @unique
+email String @db.VarChar(150) @unique
+livres livres[]
+createdAt DateTime? @db.Timestamp(0)
+updatedAt DateTime? @db.Timestamp(0)
+}
+model auteurs{
+id Int @id @default(autoincrement()) @db.UnsignedInt
+nomauteur String @db.VarChar(50)
+email String @db.VarChar(150) @unique
+numtel String @db.VarChar(15) 
+livre_auteur livre_auteur[]
+createdAt DateTime? @db.Timestamp(0)
+updatedAt DateTime? @db.Timestamp(0)
+}
+
+
+model livre_auteur {
+  auteur_id Int  @db.UnsignedInt
+  livre_id  Int  @db.UnsignedInt
+  auteurs   auteurs @relation(fields: [auteur_id], references: [id])
+  livres    livres  @relation(fields: [livre_id], references: [id])
+   @@id([auteur_id, livre_id])
+  createdAt    DateTime?      @db.Timestamp(0)
+  updatedAt    DateTime?      @db.Timestamp(0)
+ 
+}
+model User {
+  id        Int      @id @default(autoincrement()) @db.UnsignedInt
+  email     String   @unique @db.VarChar(150)
+  password  String?  @db.VarChar(255)
+  role      Role     @default(CLIENT)
+  firstname String?  
+  lastname  String?
+  adresse   String?  @db.VarChar(255)   
+  isActive  Boolean  @default(false)     
+  verificationToken String?  @unique
+
+
+  orders    Order[]   
+
+  createdAt DateTime @default(now()) @db.Timestamp(0)
+  updatedAt DateTime @updatedAt @db.Timestamp(0)
+}
+
+model Order {
+   id        Int    @id @default(autoincrement()) @db.UnsignedInt
+  userId    Int    @db.UnsignedInt
+  user      User   @relation(fields: [userId], references: [id])
+  items     OrderItem[]   
+  total     Float
+  adresse   String?   
+
+  createdAt DateTime @default(now()) @db.Timestamp(0)
+  updatedAt DateTime @updatedAt @db.Timestamp(0)
+}
+
+model OrderItem {
+  id       Int     @id @default(autoincrement()) @db.UnsignedInt
+  orderId  Int     @db.UnsignedInt
+  livreId  Int     @db.UnsignedInt
+  quantity Int     @default(1)
+
+  order    Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)   
+  livre    livres  @relation(fields: [livreId], references: [id], onDelete: Cascade)   
+}
+
+
+
+
+model livres {
+  id           Int           @id @default(autoincrement()) @db.UnsignedInt
+  isbn         String        @db.VarChar(100)
+  titre        String        @db.VarChar(100)
+  annedition   Int           @db.Int
+  prix         Float
+  qtestock     Int
+  couverture   String        @db.VarChar(255)
+  specialite_id Int          @db.UnsignedInt
+  editeur_id    Int          @db.UnsignedInt
+  editeurs      editeurs     @relation(fields: [editeur_id], references: [id])
+  specialites   specialites  @relation(fields: [specialite_id], references: [id])
+  livre_auteur  livre_auteur[]
+  createdAt     DateTime?    @db.Timestamp(0)
+  updatedAt     DateTime?    @db.Timestamp(0)
+
+  orderItems    OrderItem[]   
+}
+
+enum Role {
+  CLIENT
+  ADMIN
+  SUPERADMIN
+}
+
+
