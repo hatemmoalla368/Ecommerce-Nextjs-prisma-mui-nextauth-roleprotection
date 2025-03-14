@@ -1,3 +1,11 @@
+i deployed my app on render and here is the link : "https://ecommerce-nextjs-prisma-mui-nextauth.onrender.com/"
+you can enter the dashboard through :
+-email : hatemmoalla368@gmail.com
+-password : steelseries368
+
+
+
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
