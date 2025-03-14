@@ -19,14 +19,14 @@ export default function Login() {
     });
 
     if (!result.error) {
-      router.push('https://ecommerce-nextjs-prisma-mui-nextauth.onrender.com/'); // Redirect to home or any page after credentials login
+      router.push('/'); // Redirect to home or any page after credentials login
     } else {
       alert('Login failed. Check your credentials.');
     }
   };
 
   const handleSocialLogin = (provider) => {
-    signIn(provider, { redirect: true, callbackUrl: 'https://ecommerce-nextjs-prisma-mui-nextauth.onrender.com/' }); // Replace '/dashboard' with your desired route
+    signIn(provider, { redirect: true, callbackUrl: '/' }); // Replace '/dashboard' with your desired route
   };
 
   return (

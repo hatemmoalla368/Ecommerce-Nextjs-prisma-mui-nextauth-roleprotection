@@ -4,7 +4,7 @@ const nextConfig = {
         domains:["res.cloudinary.com", "res-console.cloudinary.com", "example.com"] 
         }, 
         env:{ 
-        URL : "https://ecommerce-nextjs-prisma-mui-nextauth.onrender.com/" 
+        URL : "https://ecommerce-nextjs-prisma-mui-nextauth-roleprotection.vercel.app/" 
         }   
 };
 
