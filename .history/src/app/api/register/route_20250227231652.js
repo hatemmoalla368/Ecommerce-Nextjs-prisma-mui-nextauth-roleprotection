@@ -74,7 +74,7 @@ async function sendVerificationEmail(email, token) {
     },
   });
 
-  const verificationLink = `https://ecommerce-nextjs-prisma-mui-nextauth.onrender.com/api/auth/verify?token=${token}`;
+  const verificationLink = `http://localhost:3000/api/auth/verify?token=${token}`;
 
 
   try {

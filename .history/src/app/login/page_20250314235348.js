@@ -19,7 +19,7 @@ export default function Login() {
     });
 
     if (!result.error) {
-      router.push('/'); // Redirect to home or any page after credentials login
+      router.push('https://ecommerce-nextjs-prisma-mui-nextauth.onrender.com/'); // Redirect to home or any page after credentials login
     } else {
       alert('Login failed. Check your credentials.');
     }
